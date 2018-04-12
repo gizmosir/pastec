@@ -35,7 +35,7 @@
 
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/features2d/features2d.hpp>
+#include <opencv2/features2d.hpp>//features2d
 
 #include <orbsearcher.h>
 #include <messages.h>
@@ -124,7 +124,9 @@ u_int32_t ORBSearcher::searchImage(SearchRequest &request)
     vector<KeyPoint> keypoints;
     Mat descriptors;
 
-    ORB(2000, 1.02, 100)(img, noArray(), keypoints, descriptors);
+    Ptr<ORB> ORB = ORB::create(2000);
+    ORB->detectAndCompute(img, noArray(), keypoints, descriptors);
+    // ORB(2000, 1.02, 100)(img, noArray(), keypoints, descriptors);
 
     gettimeofday(&t[1], NULL);
 
